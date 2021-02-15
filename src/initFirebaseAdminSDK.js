@@ -5,16 +5,21 @@ const initFirebaseAdminSDK = () => {
   if (!admin.apps.length && process.env.BUILD !== 'true') {
     const { firebaseAdminInitConfig } = getConfig()
     if (!firebaseAdminInitConfig) {
-      throw new Error(
-        'If not initializing the Firebase admin SDK elsewhere, you must provide "firebaseAdminInitConfig" to next-firebase-auth.'
-      )
+      try {
+        admin.initializeApp()
+      } catch (error) {
+        throw new Error(
+          'If not initializing the Firebase admin SDK elsewhere, you must provide "firebaseAdminInitConfig" to next-firebase-auth.'
+        )
+      }
+    } else {
+      admin.initializeApp({
+        ...firebaseAdminInitConfig,
+        credential: admin.credential.cert({
+          ...firebaseAdminInitConfig.credential,
+        }),
+      })
     }
-    admin.initializeApp({
-      ...firebaseAdminInitConfig,
-      credential: admin.credential.cert({
-        ...firebaseAdminInitConfig.credential,
-      }),
-    })
   }
 }
 
