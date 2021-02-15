@@ -1,6 +1,6 @@
 {
   "name": "next-firebase-auth-websu",
-  "version": "0.12.2",
+  "version": "0.12.3",
   "description": "Simple Firebase authentication for all Next.js rendering strategies",
   "keywords": [
     "Next",
