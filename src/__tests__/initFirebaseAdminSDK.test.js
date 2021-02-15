@@ -44,21 +44,6 @@ describe('initFirebaseAdminSDK', () => {
     expect(admin.initializeApp).not.toHaveBeenCalled()
   })
 
-  it('throws if config.firebaseAdminInitConfig is not set and no app is initialized', () => {
-    expect.assertions(1)
-    const mockConfig = createMockConfig({ clientSide: false })
-    setConfig({
-      ...mockConfig,
-      firebaseAdminInitConfig: undefined,
-    })
-    const initFirebaseAdminSDK = require('src/initFirebaseAdminSDK').default
-    expect(() => {
-      initFirebaseAdminSDK()
-    }).toThrow(
-      'If not initializing the Firebase admin SDK elsewhere, you must provide "firebaseAdminInitConfig" to next-firebase-auth.'
-    )
-  })
-
   it('does not throw if config.firebaseAdminInitConfig is not set but a Firebase app is already initialized', () => {
     expect.assertions(1)
     const mockConfig = createMockConfig({ clientSide: false })
